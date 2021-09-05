@@ -1,4 +1,4 @@
 # projeto-bloco-python-server
 Lado servidor do projeto de bloco
 
-Projeto voltado para o lado Servidor no projeto de bloco do INFNET
+Projeto de bloco destinado a matéria de [Projeto de Bloco Arquitetura de Computadores Sistemas Operacionais e Redes]
