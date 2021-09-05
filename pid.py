@@ -9,7 +9,7 @@ def getPidInfo():
     pid_selected = pid_list[pid_aleatory]
 
     pid = psutil.Process(pid_selected)
-    print(pid, '\n')
+
     try:
         pid = {
             'pid_id': pid_selected,
