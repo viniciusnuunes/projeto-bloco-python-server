@@ -6,6 +6,7 @@ import properties as CONSTANTS
 import pid as pidInfo
 import disk as diskInfo
 import cpu_cores as CpuCoresInfo
+import network as NetorkInfo
 
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -18,38 +19,44 @@ try:
         f'Servidor iniciado em {CONSTANTS.HOST} ({CONSTANTS.HOST_NAME}) na porta {CONSTANTS.PORT}')
 
     while True:
-        (sock_client, addr_client) = sock.accept()
-        print(f'Conectado estabelecida - {str(addr_client)}')
+        (clientSock, clientAddr) = sock.accept()
+        print(f'Conectado estabelecida - {str(clientAddr)}')
 
-        data = sock_client.recv(CONSTANTS.BUFFER_SIZE)
-        data = data.decode('utf-8')
-        
-        if data == 'cpu':
+        message = clientSock.recv(CONSTANTS.BUFFER_SIZE)
+        message = message.decode('utf-8')
+
+        if message == 'cpu':
             cpu = CpuCoresInfo.getCpu()
             cpu = pickle.dumps(cpu)
-            
-            sock_client.send(cpu)     
-            
-        if data == 'memory':
+
+            clientSock.send(cpu)
+
+        if message == 'memory':
             memory = CpuCoresInfo.getCpu()
             memory = pickle.dumps(memory)
-            
-            sock_client.send(memory)     
 
-        if data == 'pid':
+            clientSock.send(memory)
+
+        if message == 'network':
+            network = CpuCoresInfo.getCpu()
+            network = pickle.dumps(network)
+
+            clientSock.send(memory)
+
+        if message == 'pid':
             pid = pidInfo.getPid()
             pid = pickle.dumps(pid)
 
-            sock_client.send(pid)
-            
-        if data == 'disk':
+            clientSock.send(pid)
+
+        if message == 'disk':
             disk = diskInfo.getDiskUsage()
             disk = pickle.dumps(disk)
-            
-            sock_client.send(disk)
 
-        print(f'Conexão encerrada - {str(addr_client)}')
-        sock_client.close()
+            clientSock.send(disk)
+
+        print(f'Conexão encerrada - {str(clientAddr)}')
+        clientSock.close()
 except Exception as error:
     print(str(error))
     pass

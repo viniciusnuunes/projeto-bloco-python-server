@@ -4,15 +4,15 @@ import time
 
 
 def getPid():
-    pid_list = psutil.pids()
-    pid_aleatory = random.randint(0, len(pid_list))
-    pid_selected = pid_list[pid_aleatory]
+    pidList = psutil.pids()
+    pidAleatory = random.randint(0, len(pidList))
+    pidSelected = pidList[pidAleatory]
 
-    pid = psutil.Process(pid_selected)
+    pid = psutil.Process(pidSelected)
 
     try:
         pid = {
-            'pid_id': pid_selected,
+            'pid_id': pidSelected,
             'pid_name': pid.name(),
             'pid_exe': pid.exe(),
             'pid_date_creation': time.ctime(pid.create_time()),
