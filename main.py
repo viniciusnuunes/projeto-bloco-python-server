@@ -9,6 +9,7 @@ import cpuCores as CpuCoresInfo
 import memory as MemoryInfo
 import network as NetworkInfo
 import resume as ResumeInfo
+import file as FileInfo
 
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -46,10 +47,10 @@ try:
             clientSock.send(memory)
 
         if message == 'network':
-            network = NetworkInfo.getCpu()
+            network = NetworkInfo.getNetwork()
             network = pickle.dumps(network)
 
-            clientSock.send(memory)
+            clientSock.send(network)
 
         if message == 'resume':
             resume = ResumeInfo.getResume()
@@ -58,13 +59,13 @@ try:
             clientSock.send(resume)
 
         if message == 'simple-files':
-            simpleFiles = ResumeInfo.getResume()
+            simpleFiles = FileInfo.getSimpleFiles()
             simpleFiles = pickle.dumps(simpleFiles)
 
             clientSock.send(simpleFiles)
 
         if message == 'detailed-files':
-            detailedFiles = ResumeInfo.getResume()
+            detailedFiles = FileInfo.getDetailedFiles()
             detailedFiles = pickle.dumps(detailedFiles)
 
             clientSock.send(detailedFiles)

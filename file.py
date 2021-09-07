@@ -16,7 +16,6 @@ def getDetailedFiles():
         isFile = os.path.isfile(file)
 
         if isFile:
-            print(file)
             dictFiles[file] = []
 
             dictFiles[file].append(os.stat(file).st_size)
