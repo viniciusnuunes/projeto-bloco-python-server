@@ -29,6 +29,12 @@ try:
             cpu = pickle.dumps(cpu)
             
             sock_client.send(cpu)     
+            
+        if data == 'memory':
+            memory = CpuCoresInfo.getCpu()
+            memory = pickle.dumps(memory)
+            
+            sock_client.send(memory)     
 
         if data == 'pid':
             pid = pidInfo.getPid()
@@ -46,4 +52,4 @@ try:
         sock_client.close()
 except Exception as error:
     print(str(error))
-    sys.exit(1)
+    pass
