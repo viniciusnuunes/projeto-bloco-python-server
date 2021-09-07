@@ -6,7 +6,8 @@ import properties as CONSTANTS
 import pid as pidInfo
 import disk as diskInfo
 import cpu_cores as CpuCoresInfo
-import network as NetorkInfo
+import network as NetworkInfo
+import resume as ResumeInfo
 
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -31,6 +32,12 @@ try:
 
             clientSock.send(cpu)
 
+        if message == 'disk':
+            disk = diskInfo.getDiskUsage()
+            disk = pickle.dumps(disk)
+
+            clientSock.send(disk)
+
         if message == 'memory':
             memory = CpuCoresInfo.getCpu()
             memory = pickle.dumps(memory)
@@ -43,20 +50,21 @@ try:
 
             clientSock.send(memory)
 
+        if message == 'resume':
+            resume = ResumeInfo.getResume()
+            resume = pickle.dumps(resume)
+
+            clientSock.send(resume)
+
         if message == 'pid':
             pid = pidInfo.getPid()
             pid = pickle.dumps(pid)
 
             clientSock.send(pid)
 
-        if message == 'disk':
-            disk = diskInfo.getDiskUsage()
-            disk = pickle.dumps(disk)
-
-            clientSock.send(disk)
+        clientSock.close()
 
         print(f'Conexão encerrada - {str(clientAddr)}')
-        clientSock.close()
 except Exception as error:
     print(str(error))
     pass
