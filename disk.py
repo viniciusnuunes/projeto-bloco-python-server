@@ -1,7 +1,7 @@
 import psutil
 
 
-def getDiskUsageInfo():
+def getDiskUsage():
     disk = psutil.disk_usage('/')
 
     disk = {'disk_total': disk[0],

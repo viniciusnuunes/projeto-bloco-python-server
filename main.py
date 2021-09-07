@@ -5,6 +5,8 @@ import pickle
 import properties as CONSTANTS
 import pid as pidInfo
 import disk as diskInfo
+import cpu_cores as CpuCoresInfo
+
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -21,15 +23,21 @@ try:
 
         data = sock_client.recv(CONSTANTS.BUFFER_SIZE)
         data = data.decode('utf-8')
+        
+        if data == 'cpu':
+            cpu = CpuCoresInfo.getCpu()
+            cpu = pickle.dumps(cpu)
+            
+            sock_client.send(cpu)     
 
         if data == 'pid':
-            pid = pidInfo.getPidInfo()
+            pid = pidInfo.getPid()
             pid = pickle.dumps(pid)
 
             sock_client.send(pid)
             
         if data == 'disk':
-            disk = diskInfo.getDiskUsageInfo()
+            disk = diskInfo.getDiskUsage()
             disk = pickle.dumps(disk)
             
             sock_client.send(disk)

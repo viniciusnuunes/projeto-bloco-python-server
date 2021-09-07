@@ -3,7 +3,7 @@ import random
 import time
 
 
-def getPidInfo():
+def getPid():
     pid_list = psutil.pids()
     pid_aleatory = random.randint(0, len(pid_list))
     pid_selected = pid_list[pid_aleatory]
