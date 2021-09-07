@@ -5,7 +5,8 @@ import pickle
 import properties as CONSTANTS
 import pid as pidInfo
 import disk as diskInfo
-import cpu_cores as CpuCoresInfo
+import cpuCores as CpuCoresInfo
+import memory as MemoryInfo
 import network as NetworkInfo
 import resume as ResumeInfo
 
@@ -39,13 +40,13 @@ try:
             clientSock.send(disk)
 
         if message == 'memory':
-            memory = CpuCoresInfo.getCpu()
+            memory = MemoryInfo.getMemoryInfo()
             memory = pickle.dumps(memory)
 
             clientSock.send(memory)
 
         if message == 'network':
-            network = CpuCoresInfo.getCpu()
+            network = NetworkInfo.getCpu()
             network = pickle.dumps(network)
 
             clientSock.send(memory)
@@ -55,6 +56,18 @@ try:
             resume = pickle.dumps(resume)
 
             clientSock.send(resume)
+
+        if message == 'simple-files':
+            simpleFiles = ResumeInfo.getResume()
+            simpleFiles = pickle.dumps(simpleFiles)
+
+            clientSock.send(simpleFiles)
+
+        if message == 'detailed-files':
+            detailedFiles = ResumeInfo.getResume()
+            detailedFiles = pickle.dumps(detailedFiles)
+
+            clientSock.send(detailedFiles)
 
         if message == 'pid':
             pid = pidInfo.getPid()
