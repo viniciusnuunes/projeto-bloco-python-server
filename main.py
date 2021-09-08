@@ -21,10 +21,10 @@ try:
     print(
         f'Servidor iniciado em {CONSTANTS.HOST} ({CONSTANTS.HOST_NAME}) na porta {CONSTANTS.PORT}')
 
-    while True:
-        (clientSock, clientAddr) = sock.accept()
-        print(f'Conectado estabelecida - {str(clientAddr)}')
+    (clientSock, clientAddr) = sock.accept()
+    print(f'Conectado estabelecida - {str(clientAddr)}')
 
+    while True:
         message = clientSock.recv(CONSTANTS.BUFFER_SIZE)
         message = message.decode('utf-8')
 
@@ -76,9 +76,12 @@ try:
 
             clientSock.send(pid)
 
-        clientSock.close()
+        if message == 'close-application':
+            clientSock.close()
+            print(f'Conexão encerrada - {str(clientAddr)}')
+            break
 
-        print(f'Conexão encerrada - {str(clientAddr)}')
+    sock.close()
 except Exception as error:
     print(str(error))
     pass
