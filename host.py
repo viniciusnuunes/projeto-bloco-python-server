@@ -55,10 +55,6 @@ def getHosts():
 
     validHosts = __getValidHosts(baseIP)
 
-    # onlyHost = []
-    # onlyHost.append(validHosts[0])
-    # onlyHost.append(validHosts[1])
-
     nm = nmap.PortScanner()
 
     threadList = []
@@ -77,7 +73,9 @@ def getHosts():
         'hostsPorts': hostPortDict
     }
 
-    print(hostsInfos)
+    print('Extração finalizada')
+
+    return hostsInfos
 
 
 def __getValidHosts(baseIP):
@@ -87,7 +85,7 @@ def __getValidHosts(baseIP):
     validHosts = []
     returnedCodes = dict()
 
-    for i in range(1, 10):
+    for i in range(1, 255):
         i_str = str(i)
         returnedCodes[baseIP + i_str] = __pingCode(baseIP + i_str)
 

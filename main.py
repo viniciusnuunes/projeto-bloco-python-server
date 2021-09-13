@@ -10,6 +10,7 @@ import memory as MemoryInfo
 import network as NetworkInfo
 import resume as ResumeInfo
 import file as FileInfo
+import host as HostInfo
 
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -75,6 +76,12 @@ try:
             pid = pickle.dumps(pid)
 
             clientSock.send(pid)
+            
+        if message == 'host':
+            host = HostInfo.getHosts()
+            host = pickle.dumps(host)
+
+            clientSock.send(host)
 
         if message == 'close-application':
             clientSock.close()
