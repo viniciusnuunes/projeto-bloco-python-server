@@ -116,6 +116,3 @@ def __pingCode(hostname):
                            stdout=open(os.devnull, 'w'),
                            stderr=open(os.devnull, 'w'))
     return code
-
-
-getHosts()
